@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaPaperPlane } from "react-icons/fa";
 import logo from "/logo.png";
 import { replace, useNavigate } from "react-router";
+import axios from "axios";
 
 const FormsInSteps = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -20,24 +21,24 @@ const FormsInSteps = () => {
 
     const onSubmit = (data) => {
         const finalData = { ...formData, ...data };
-        console.log("Submitted Data:", finalData);
-        alert("Form Submitted Successfully!");
-        navigate("/submitted", { replace: true });
+        // console.log("Submitted Data:", finalData);
+        // alert("Form Submitted Successfully!");
+        // navigate("/submitted", { replace: true });
 
 
-        // try {
-        //     const respose = axios.post("url", finalData, {
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         }
-        //     });
-        //     console.log("response from server ", respose);
-        //     navigate("/submitted");
+        try {
+            const respose = axios.post("http://http://192.168.103.2:84/:84/Employee/getarea", finalData, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            console.log("response from server ", respose);
+            navigate("/submitted");
 
-        // } catch (error) {
-        //     console.log(error);
-        //     console.log("error while submitting the form");
-        // }
+        } catch (error) {
+            console.log(error);
+            console.log("error while submitting the form");
+        }
 
     };
 
@@ -87,6 +88,10 @@ const FormsInSteps = () => {
                                         type="text"
                                         {...register("fullName", {
                                             required: "Full name is required",
+                                            pattern: {
+                                                value: /^[A-Za-z\s]+$/,
+                                                message: "Only letters and spaces are allowed"
+                                            },
                                             minLength: { value: 3, message: "Name must be at least 3 characters" },
                                         })}
                                         placeholder="Full Name"
@@ -100,7 +105,14 @@ const FormsInSteps = () => {
                                     <label className="text-white">Father's Name</label>
                                     <input
                                         type="text"
-                                        {...register("fatherName", { required: "Father's name is required" })}
+                                        {...register("fatherName", {
+                                            required: "Father's name is required",
+                                            pattern: {
+                                                value: /^[A-Za-z\s]+$/,
+                                                message: "Only letters and spaces are allowed"
+                                            },
+                                            minLength: { value: 3, message: "Name must be at least 3 characters" },
+                                        })}
                                         placeholder="Father's Name"
                                         className="input-box"
                                     />
@@ -192,6 +204,7 @@ const FormsInSteps = () => {
                                         <option value="">Select</option>
                                         <option>Male</option>
                                         <option>Female</option>
+                                        <option>Other</option>
                                     </select>
                                     {errors.gender && <span className="text-red-400 text-sm">{errors.gender.message}</span>}
                                 </div>

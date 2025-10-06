@@ -6,6 +6,8 @@ import Forms from './components/Forms'
 import FormsInSteps from './components/FormsInSteps'
 import SubmissionSummary from './components/SubmitionSummary'
 import { Route, Router, Routes } from 'react-router'
+import FinalForm from './components/FinalForm'
+import Preview from './components/Preview'
 
 const App = () => {
   return (
@@ -17,7 +19,8 @@ const App = () => {
       {/* <FormsInSteps /> */}
 
       <Routes>
-        <Route path='/' element={<FormsInSteps />} />
+        <Route path='/' element={<FinalForm />} />
+        <Route path='/preview' element={<Preview />} />
         <Route path='/submitted' element={<SubmissionSummary />} />
       </Routes>
     </>
