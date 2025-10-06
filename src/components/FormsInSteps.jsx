@@ -153,7 +153,7 @@ const FormsInSteps = () => {
                                             required: "Phone number is required",
                                             pattern: {
                                                 value: /^(\+92|0)?3[0-9]{9}$/,
-                                                message: "Enter a valid Pakistani phone number",
+                                                message: "Enter a valid phone number",
                                             },
                                         })}
                                         placeholder="+92 300 1234567"
